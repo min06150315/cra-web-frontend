@@ -1,15 +1,60 @@
-const Home = () => <div className="p-8">메인 대시보드 페이지</div>;
-const NotFound = () => (
-  <div className="p-8 text-red-500">404 - 페이지를 찾을 수 없습니다.</div>
-);
+import type { RouteObject } from 'react-router-dom';
+import { MainLayout } from '@/components/common/MainLayout';
+import { NotFoundPage } from '@/features/main/pages/NotFoundPage';
 
 export const routes = [
   {
     path: '/',
-    element: <Home />,
+    element: <MainLayout />,
+    errorElement: (
+      <MainLayout>
+        <NotFoundPage />
+      </MainLayout>
+    ),
+    children: [
+      {
+        index: true,
+        lazy: async () => ({
+          Component: (await import('@/features/main/pages/HomePage')).HomePage,
+        }),
+      },
+      {
+        path: 'recruit',
+        lazy: async () => ({
+          Component: (await import('@/features/main/pages/RecruitPage')).RecruitPage,
+        }),
+      },
+      {
+        path: 'login',
+        lazy: async () => ({
+          Component: (await import('@/features/auth/pages/LoginPage')).LoginPage,
+        }),
+      },
+      {
+        path: 'register',
+        lazy: async () => ({
+          Component: (await import('@/features/auth/pages/RegisterPage')).RegisterPage,
+        }),
+      },
+      {
+        path: 'notice',
+        children: [
+          {
+            index: true,
+            lazy: async () => ({
+              Component: (await import('@/features/notice/pages/NoticeListPage'))
+                .NoticeListPage,
+            }),
+          },
+          {
+            path: 'view/:id',
+            lazy: async () => ({
+              Component: (await import('@/features/notice/pages/NoticeDetailPage'))
+                .NoticeDetailPage,
+            }),
+          },
+        ],
+      },
+    ],
   },
-  {
-    path: '*',
-    element: <NotFound />,
-  },
-];
+] satisfies RouteObject[];
