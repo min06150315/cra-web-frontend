@@ -5,12 +5,39 @@
 @plugin "@tailwindcss/typography";
 
 @layer utilities {
+  @theme {
+    --font-hanna-pro: 'BM HANNA Pro';
+    --font-hanna-air: 'BM HANNA AIR';
+  }
+
   @font-face {
-    font-family: 'Pretendard Variable';
+    font-family: 'Pretendard';
     src:
       local('Pretendard Variable'),
       url('./PretendardVariable.woff2') format('woff2-variations');
     font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'BM HANNA Pro';
+    src:
+      local('BM HANNA Pro'),
+      local('BMHANNAPro'),
+      url('./BMHANNAPro.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'BM HANNA AIR';
+    src:
+      local('BM HANNA AIR'),
+      local('BMHANNAAIR'),
+      url('./BMHANNAAIR.woff2') format('woff2');
+    font-weight: normal;
     font-style: normal;
     font-display: swap;
   }
@@ -22,7 +49,7 @@
   html,
   body {
     font-family:
-      'Pretendard Variable',
+      'Pretendard',
       -apple-system,
       sans-serif;
 
