@@ -1,5 +1,5 @@
 import { HomeAbout } from '@/features/home/components/HomeAbout';
-import { HomeActiveProjects } from '@/features/home/components/HomeActiveProjects';
+import { HomeRecruit } from '@/features/home/components/HomeRecruit';
 import { HomeHeroBanner } from '@/features/home/components/HomeHeroBanner';
 import { HomeHistory } from '@/features/home/components/HomeHistory';
 import { HomeMainProjects } from '@/features/home/components/HomeMainProjects';
@@ -13,7 +13,7 @@ export const HomePage = () => {
       <HomeHistory />
       <HomeMembers />
       <HomeMainProjects />
-      <HomeActiveProjects />
+      <HomeRecruit />
     </div>
   );
 };

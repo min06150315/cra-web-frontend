@@ -15,7 +15,7 @@ export const routes = [
       {
         index: true,
         lazy: async () => ({
-          Component: (await import('@/features/main/pages/HomePage')).HomePage,
+          Component: (await import('@/features/home/pages/HomePage')).HomePage,
         }),
       },
       {
@@ -33,7 +33,7 @@ export const routes = [
       {
         path: 'register',
         lazy: async () => ({
-          Component: (await import('@/features/auth/pages/RegisterPage')).RegisterPage,
+          Component: (await import('@/features/auth/pages/SignUpPage')).SignUpPage,
         }),
       },
       {
@@ -47,10 +47,36 @@ export const routes = [
             }),
           },
           {
-            path: 'view/:id',
+            path: ':id',
             lazy: async () => ({
               Component: (await import('@/features/notice/pages/NoticeDetailPage'))
                 .NoticeDetailPage,
+            }),
+          },
+        ],
+      },
+      {
+        path: 'board',
+        children: [
+          {
+            index: true,
+            lazy: async () => ({
+              Component: (await import('@/features/board/pages/BoardListPage'))
+                .BoardListPage,
+            }),
+          },
+          {
+            path: 'create',
+            lazy: async () => ({
+              Component: (await import('@/features/board/pages/BoardCreatePage'))
+                .BoardCreatePage,
+            }),
+          },
+          {
+            path: 'update/:id',
+            lazy: async () => ({
+              Component: (await import('@/features/board/pages/BoardUpdatePage'))
+                .BoardUpdatePage,
             }),
           },
         ],

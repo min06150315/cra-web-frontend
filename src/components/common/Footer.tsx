@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import CRA_LOGO from '/cra/new-cra-logo.png';
+import CRA_LOGO from '/cra/new-cra-logo.avif';
 
 export const Footer = () => {
   return (
