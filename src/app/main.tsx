@@ -6,7 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './styles/global.css';
 import { AppRouter } from '@/routes/index.tsx';
 
-async function enableMocking() {
+ const enableMocking = async () => {
   if (import.meta.env.MODE !== 'development') {
     return;
   }
