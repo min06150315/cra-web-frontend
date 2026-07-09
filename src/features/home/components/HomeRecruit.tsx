@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
+import CRACapStoneIMG from '@/assets/images/home/capstone-cra.avif';
 
 export const HomeRecruit = () => {
   return (
     <section className="relative w-full min-h-[650px] md:min-h-[750px] overflow-hidden">
       <img
-        src="/cra/capstone-cra.jpg"
+        src={CRACapStoneIMG}
         alt="리크루팅 배경"
         className="absolute inset-0 w-full h-full object-cover"
       />

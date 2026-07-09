@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import CRA_LOGO from '/cra/new-cra-logo.avif';
+import CRALogoIMG from '@/assets/images/logos/logo-blue.avif';
 
 export const Footer = () => {
   return (
@@ -9,7 +9,11 @@ export const Footer = () => {
         <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-8 pb-10 border-b border-gray-200">
           <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <img src={CRA_LOGO} alt="CRA LOGO" className="h-10 w-auto object-contain" />
+              <img
+                src={CRALogoIMG}
+                alt="CRA LOGO"
+                className="h-10 w-auto object-contain"
+              />
               <div className="w-px h-4 bg-gray-300" />
 
               <Link

@@ -14,7 +14,7 @@
     font-family: 'Pretendard';
     src:
       local('Pretendard Variable'),
-      url('./PretendardVariable.woff2') format('woff2-variations');
+      url('@/assets/fonts/PretendardVariable.woff2') format('woff2-variations');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
@@ -25,7 +25,7 @@
     src:
       local('BM HANNA Pro'),
       local('BMHANNAPro'),
-      url('./BMHANNAPro.woff2') format('woff2');
+      url('@/assets/fonts/BMHANNAPro.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -36,7 +36,7 @@
     src:
       local('BM HANNA AIR'),
       local('BMHANNAAIR'),
-      url('./BMHANNAAIR.woff2') format('woff2');
+      url('@/assets/fonts/BMHANNAAIR.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
     font-display: swap;

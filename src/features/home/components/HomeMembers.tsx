@@ -1,3 +1,7 @@
+import ActivityIMG01 from '@/assets/images/home/activity-networking.avif';
+import ActivityIMG02 from '@/assets/images/home/activity-study.avif';
+import ActivityIMG03 from '@/assets/images/home/activity-zoom.avif';
+
 export const HomeMembers = () => {
   return (
     <section className="w-full bg-main-black py-20 md:py-32 px-6">
@@ -5,8 +9,8 @@ export const HomeMembers = () => {
         <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-center">
           <div className="w-full md:w-1/2 aspect-[16/10] overflow-hidden rounded-2xl bg-gray-900 border border-primary-hover">
             <img
-              src="/cra/crabig.avif"
-              alt="CRA 대형 모임"
+              src={ActivityIMG01}
+              alt="CRA 큰모임"
               loading="lazy"
               className="w-full h-full object-cover"
             />
@@ -25,10 +29,9 @@ export const HomeMembers = () => {
         </div>
 
         <div className="flex flex-col md:flex-row-reverse gap-8 md:gap-16 items-center">
-          {/* 사진 영역 */}
           <div className="w-full md:w-1/2 aspect-[16/10] overflow-hidden rounded-2xl bg-gray-900 border border-primary-hover">
             <img
-              src="/cra/cradevelop.avif"
+              src={ActivityIMG02}
               alt="CRA 개발 세션"
               loading="lazy"
               className="w-full h-full object-cover"
@@ -51,7 +54,7 @@ export const HomeMembers = () => {
           {/* 사진 영역 */}
           <div className="w-full md:w-1/2 aspect-[16/10] overflow-hidden rounded-2xl bg-gray-900 border border-primary-hover">
             <img
-              src="/cra/crazoom.avif"
+              src={ActivityIMG03}
               alt="CRA 온라인 미팅"
               loading="lazy"
               className="w-full h-full object-cover"

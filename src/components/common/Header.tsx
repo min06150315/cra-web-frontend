@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { User } from 'lucide-react';
-import CRA_LOGO from '/cra/new-cra-logo.avif';
+import CRALogoIMG from '@/assets/images/logos/logo-blue.avif';
 
 export const Header = () => {
   // 스크롤 내리면 헤더 사라지고, 스크롤 올리면 헤더 보이는 효과
@@ -37,7 +37,7 @@ export const Header = () => {
       <div className="mx-auto flex max-w-7xl h-18 items-center justify-between px-4 sm:px-6">
         {/* 1. 로고 영역 */}
         <Link to="/" className="flex items-center cursor-pointer shrink-0">
-          <img src={CRA_LOGO} alt="CRA LOGO" className="h-9 w-auto object-contain" />
+          <img src={CRALogoIMG} alt="CRA LOGO" className="h-9 w-auto object-contain" />
         </Link>
 
         <div className="flex items-center gap-x-6 md:gap-x-10">

@@ -1,8 +1,10 @@
+import MainBannerIMG from '@/assets/images/home/hero-main-cra.avif';
+
 export const HomeHeroBanner = () => {
   return (
     <section className="relative w-screen h-screen overflow-hidden">
       <img
-        src="/main-cra-img.avif"
+        src={MainBannerIMG}
         alt="전체 화면 배경 이미지"
         className="w-full h-full object-cover"
       />
