@@ -25,13 +25,20 @@ export const routes = [
         }),
       },
       {
+        path: 'project',
+        lazy: async () => ({
+          Component: (await import('@/features/projects/pages/ProjectPage'))
+            .ProjectPage,
+        }),
+      },
+      {
         path: 'login',
         lazy: async () => ({
           Component: (await import('@/features/auth/pages/LoginPage')).LoginPage,
         }),
       },
       {
-        path: 'register',
+        path: 'signup',
         lazy: async () => ({
           Component: (await import('@/features/auth/pages/SignUpPage')).SignUpPage,
         }),
