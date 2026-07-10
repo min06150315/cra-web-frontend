@@ -1,9 +1,10 @@
 import { Footer } from '@/components/common/Footer';
 import { Header } from '@/components/common/Header';
 import { useEffect, type PropsWithChildren } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
 
 export const MainLayout = ({ children }: PropsWithChildren) => {
+  // 콘솔 창 꾸미기
   // useEffect(() => {
   //   window.console.log(
   //     '%c Welcome to CRA',
@@ -16,6 +17,7 @@ export const MainLayout = ({ children }: PropsWithChildren) => {
       <Header />
       <main className="flex-1 w-full pt-18">{children || <Outlet />}</main>
       <Footer />
+      <ScrollRestoration />
     </div>
   );
 };
