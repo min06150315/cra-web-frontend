@@ -15,7 +15,7 @@ export const RecruitBanner = ({
 }: RecruitBannerProps) => {
   return (
     <div className="text-center mb-16">
-      <span className="bg-[#70b1f2] border-2 border-black text-black text-sm font-black px-4 py-1.5 rounded-full uppercase tracking-widest inline-block mb-4 shadow-[2px_2px_0px_0px_#000]">
+      <span className="bg-primary border-2 border-black text-black text-sm font-black px-4 py-1.5 rounded-full uppercase tracking-widest inline-block mb-4 shadow-[2px_2px_0px_0px_#000]">
         Recruiting {year}
       </span>
       <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-8 uppercase leading-tight">
@@ -24,7 +24,7 @@ export const RecruitBanner = ({
 
       <div className="max-w-3xl mx-auto">
         {isRecruiting ? (
-          <div className="bg-[#70b1f2] border-4 border-black p-6 rounded-3xl shadow-[8px_8px_0px_0px_#000] flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="bg-primary border-4 border-black p-6 rounded-3xl shadow-[8px_8px_0px_0px_#000] flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3 text-left">
               <div className="bg-white border-2 border-black w-10 h-10 rounded-full flex items-center justify-center shrink-0">
                 <UserPlus size={20} strokeWidth={3} className="text-black" />

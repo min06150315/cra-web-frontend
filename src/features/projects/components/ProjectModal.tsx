@@ -28,7 +28,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
 
         {/* 내용 부분 */}
         <div className="p-8">
-          <span className="text-sm font-bold bg-[#70b1f2] text-black border border-black px-2 py-0.5 rounded-md inline-block">
+          <span className="text-sm font-bold bg-primary text-black border border-black px-2 py-0.5 rounded-md inline-block">
             {project.term} 기수 프로젝트
           </span>
           <h3 className="text-3xl font-black mt-2 mb-4 text-black">{project.title}</h3>
@@ -49,7 +49,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                 href={project.github}
                 target="_blank"
                 rel="noreferrer"
-                className="px-5 py-2.5 bg-[#70b1f2] hover:bg-primary-hover text-white border-2 border-black rounded-xl text-sm font-black inline-block text-center shadow-[3px_3px_0px_0px_#000] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
+                className="px-5 py-2.5 bg-primary hover:bg-primary-hover text-white border-2 border-black rounded-xl text-sm font-black inline-block text-center shadow-[3px_3px_0px_0px_#000] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
               >
                 GitHub 방문
               </a>

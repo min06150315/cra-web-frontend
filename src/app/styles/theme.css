@@ -2,10 +2,14 @@
   --color-main: #ffffff;
   --color-main-white: #ffffff;
 
+  /* 주로 사용되는 컬러들 */
   --color-primary: #70b1f2;
   --color-primary-hover: #388bdd;
-  --color-accent: #69c077;
+  --color-point-green: #39ff14;
+  --color-point-pink: #ff65a3;
+  --color-point-yellow: #ffde4d;
 
+  /* 레거시 프로젝트 컬러들 */
   --color-more-primary: #007bff;
   --color-i-taxi: #70b1f2;
   --color-dark-i-taxi: #5ea8df;
