@@ -1,168 +1,4 @@
-const data = [
-  {
-    year: '2025',
-    title: '동계 DS 캠프 #선배들과 함께하는 DS 캠프# 주관',
-    content: [
-      '하계 신입 프로젝트',
-      ' - 매칭부터 콘텐츠까지 이어지는 팀 CC 맞춤형 어플 #CCGO#',
-      ' - AI 기반 자료 정리 프로그램 #Jamiron#',
-    ],
-  },
-  {
-    year: '2024',
-    title: '동계 DS 캠프 #선배들과 함께하는 DS 캠프# 주관',
-    content: [
-      '하계 신입 프로젝트',
-      ' - 발전기 고장 해결 퍼즐 어드벤처 게임 #Lazy Raccoon#',
-      ' - 동아리 공연 예매 서비스 #동공확장 2#',
-      '동계 신입 프로젝트',
-      ' - 실시간 전략 게임 #말랑 타격대#',
-      ' - CRA 동아리 홈페이지 #CRA 웹#',
-      ' - AI 기반 코딩 도우미 #Coding Roadmap Assistant#',
-    ],
-  },
-  {
-    year: '2023',
-    title: '동계 DS 캠프 #선배들과 함께하는 DS 캠프# 주관',
-    content: [
-      '택시 공유 서비스 #아이택시# 리뉴얼',
-      '하계 신입 프로젝트',
-      ' - 온라인 이미지 서비스 #이미지 스테이션#',
-      ' - 동아리 공연 예매 서비스 #동공확장#',
-      ' - 카드 사용 가맹점 지도 애플리케이션 #카드MAP#',
-      '동계 신입 프로젝트',
-      ' - 대학생 조별 과제 관리 애플리케이션 #Team Check Mate#',
-      ' - 뱀파이어 세계의 인간 가문 운영 게임 #BloodStore#',
-      ' - 동아리 애플리케이션 #CRA#',
-    ],
-  },
-  {
-    year: '2022',
-    title: '동계 DS 캠프 #선배들과 함께하는 DS 캠프# 주관',
-    content: [
-      '하계 신입 프로젝트',
-      ' - 한동인을 위한 런닝 애플리케이션 #HRC#',
-      ' - #중력렌즈효과 판별 서비스#',
-      ' - AR 얼굴인식 미니게임 #ARMIGO~!#',
-      '동계 신입 프로젝트',
-      ' - 한동인을 위한 배달음식 공동구매 애플리케이션 #한밥#',
-    ],
-  },
-  {
-    year: '2021',
-    title: '동계 C 캠프 #선배들과 함께하는 C 캠프# 주관',
-    content: [
-      '수강신청 도우미 #대학시간# 웹 서비스 출시',
-      '교내 분실물 찾기 서비스 #HisFinder#',
-      '동계 신입 프로젝트',
-      ' - 주식 추천 애플리케이션 #StocKid#',
-      ' - 찬양팀 보조 애플리케이션 #Haring#',
-      ' - 대안학교 플랫폼 #HILS#',
-      ' - 스터디 매칭 플랫폼 #Smapp#',
-      ' - 딥러닝 스터디 #CIFAR Image Classifier#',
-    ],
-  },
-  {
-    year: '2020',
-    title: '동계 C 캠프 #선배들과 함께하는 C 캠프# 주관',
-    content: ['중고 거래 서비스 #H-Safari# iOS/Android 어플 출시'],
-  },
-  {
-    year: '2019',
-    title: '동계 C 캠프 #하늘과 바람과 별과 C# 주관',
-    content: [
-      '인트라넷 #i7# 개발 리뉴얼',
-      '수강신청 도우미 #histime# 웹 서비스 베타 출시',
-    ],
-  },
-  {
-    year: '2018',
-    title: '동계 C 캠프 #나우 유 C 미# 주관',
-    content: [
-      '#CAKE - C언어 웹 에디터# 경북대학교 SW전공동아리 전시회 우수상 수상',
-      '강의 평가 서비스 #SEAL# 모바일 웹 리뉴얼',
-      '#아이헝그리# iOS/Android 어플 출시',
-      '택시 공유 서비스 #아이택시# iOS/Android 어플 출시',
-      '전공체험활동 프로그램, 전산전자공학부 진행',
-    ],
-  },
-  {
-    year: '2017',
-    title: '동계 C 캠프 Why so C-rious? 주관',
-    content: [
-      '기프티콘 서비스 #i-gift# 웹 서비스 출시',
-      '전공체험활동 프로그램, 전산전자공학부 진행',
-    ],
-  },
-  {
-    year: '2016',
-    title: '동계 C 캠프 #Come and C!# 주관',
-    content: [
-      '택시 공유 서비스 #아이택시# 웹 서비스 출시',
-      '강의 평가 시스템 #SEAL# 웹 서비스 출시',
-      '전공체험활동 프로그램, 전산전자공학부 진행',
-    ],
-  },
-  {
-    year: '2015',
-    title: '전공체험활동 프로그램, 전산전자공학부 진행',
-    content: [
-      '동아리 홍보 및 리쿠르팅 플랫폼 #iBelong# 웹 서비스 출시',
-      '학점 계산 서비스 #iGrad# 웹 서비스 출시',
-    ],
-  },
-  {
-    year: '2014',
-    title: '동계 C 캠프 주관',
-    content: [],
-  },
-  {
-    year: '2013',
-    title: '동계 C 캠프 주관',
-    content: [
-      '삼성 software membership 2기',
-      '미래창조과학부 캠퍼스 CEO 육성사업, 게임 #킹덤셀# 제작',
-    ],
-  },
-  {
-    year: '2012',
-    title: '제24회 글로벌 소프트웨어 공모대전 삼성SDS 사장상',
-    content: [
-      '하/동계 C 캠프 주관',
-      '공학교육페스티벌 한동대학교 대표 동아리 참가, 작품 출품(앤톡)',
-    ],
-  },
-  {
-    year: '2011',
-    title: '그룹지향형 소셜네트워크 서비스 공개 소프트웨어 개발자 대회 기업상 수상',
-    content: ['인트라넷 i3 → #i7# 업그레이드', '하/동계 C 캠프 주관'],
-  },
-  {
-    year: '2010',
-    title: 'Wizard XE - 제 1회 XE 공모전 대상 수상',
-    content: [],
-  },
-  {
-    year: '2006',
-    title: '인트라넷 3.0 #i3# 완성',
-    content: [],
-  },
-  {
-    year: '1999',
-    title: '인트라넷 2.0 #i2# 완성',
-    content: ['#i2# - 정보통신 소프트웨어 공모대전 학생부 우수상 수상'],
-  },
-  {
-    year: '1997',
-    title: '인트라넷 1.0 초기 버전 완성 및 학교 배포',
-    content: [],
-  },
-  {
-    year: '1995',
-    title: '#CRA (전산연구회) 창립#',
-    content: [],
-  },
-];
+import { HISTORY_DATA } from '@/features/home/data/histories';
 
 const HighlightText = ({ text }: { text: string }) => {
   const parts = text.split('#');
@@ -170,7 +6,10 @@ const HighlightText = ({ text }: { text: string }) => {
     <>
       {parts.map((part, i) =>
         i % 2 === 1 ? (
-          <strong key={i} className="text-primary-hover font-extrabold mx-0.5">
+          <strong
+            key={i}
+            className="inline-block bg-primary text-black border border-black px-1.5 py-0.5 font-black mx-0.5 transform rotate-1"
+          >
             {part}
           </strong>
         ) : (
@@ -183,37 +22,43 @@ const HighlightText = ({ text }: { text: string }) => {
 
 export const HomeHistory = () => {
   return (
-    <section className="w-full py-20 md:py-32 px-6">
+    <section className="w-full py-20 md:py-32 px-6 bg-white border-b-4 border-black">
       <div className="mx-auto max-w-4xl">
         <div className="mb-16 text-center md:text-left">
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4">HISTORY</h2>
-          <p className="text-sm md:text-base tracking-wide">
+          <h2 className="inline-block text-3xl md:text-5xl font-black tracking-tight mb-4 bg-black text-white px-6 py-2 transform -rotate-1 border-2 border-black shadow-[4px_4px_0px_0px_#70b1f2]">
+            HISTORY
+          </h2>
+          <p className="text-sm md:text-lg tracking-wide font-bold mt-4 text-black">
             CRA가 걸어온 혁신과 열정의 시간들입니다.
           </p>
         </div>
 
-        <div className="relative border-l border-gray-300 ml-4 md:ml-6 pl-8 md:pl-12 space-y-12 md:space-y-16">
-          {data.map((item, index) => (
+        <div className="relative border-l-4 border-black ml-4 md:ml-6 pl-8 md:pl-12 space-y-12 md:space-y-16">
+          {HISTORY_DATA.map((item, index) => (
             <div key={index} className="relative group">
-              <div className="absolute -left-[38px] md:-left-[56px] top-1.5 bg-main-black border-2 border-primary w-4 h-4 rounded-full z-10 transition-transform duration-300 group-hover:scale-125" />
+              <div className="absolute -left-10 md:-left-14.5 top-1.5 bg-white border-[3px] border-black w-5 h-5 z-10 transition-transform duration-200 group-hover:scale-125 group-hover:bg-primary" />
 
-              <div className="flex flex-col md:flex-row md:items-baseline md:gap-x-6 mb-3">
-                <span className="text-2xl md:text-3xl font-black tracking-tight">
-                  {item.year}년
-                </span>
-                <h3 className="text-lg md:text-xl font-bold text-primary-hover mt-1 md:mt-0">
-                  <HighlightText text={item.title} />
-                </h3>
+              <div className="bg-white border-3 border-black p-5 md:p-6 shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0px_0px_rgba(0,0,0,1)] transition-all duration-150">
+                <div className="flex flex-col md:flex-row md:items-baseline md:gap-x-6 mb-4">
+                  <span className="inline-block text-2xl md:text-3xl font-black tracking-tight bg-black text-white px-3 py-0.5 transform -rotate-1">
+                    {item.year}년
+                  </span>
+                  <h3 className="text-lg md:text-xl font-extrabold text-black mt-2 md:mt-0 leading-snug">
+                    <HighlightText text={item.title} />
+                  </h3>
+                </div>
+
+                <ul className="space-y-3 text-sm md:text-base leading-relaxed font-bold text-gray-800">
+                  {item.content.map((text, cIndex) => (
+                    <li key={cIndex} className="flex items-start gap-x-2">
+                      <span className="text-black font-black select-none">•</span>
+                      <span>
+                        <HighlightText text={text}></HighlightText>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-
-              <ul className="space-y-2 text-sm md:text-base leading-relaxed">
-                {item.content.map((text, cIndex) => (
-                  <li key={cIndex} className="flex items-start gap-x-2">
-                    <span className="text-primary-hover select-none">•</span>
-                    <span><HighlightText text={text}></HighlightText></span>
-                  </li>
-                ))}
-              </ul>
             </div>
           ))}
         </div>

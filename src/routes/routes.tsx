@@ -21,7 +21,7 @@ export const routes = [
       {
         path: 'recruit',
         lazy: async () => ({
-          Component: (await import('@/features/main/pages/RecruitPage')).RecruitPage,
+          Component: (await import('@/features/recruit/pages/RecruitPage')).RecruitPage,
         }),
       },
       {
