@@ -27,8 +27,7 @@ export const routes = [
       {
         path: 'project',
         lazy: async () => ({
-          Component: (await import('@/features/projects/pages/ProjectPage'))
-            .ProjectPage,
+          Component: (await import('@/features/projects/pages/ProjectPage')).ProjectPage,
         }),
       },
       {
@@ -89,5 +88,15 @@ export const routes = [
         ],
       },
     ],
+  },
+  {
+    path: '/coming-soon',
+    lazy: async () => ({
+      Component: (await import('@/features/main/pages/ComingSoonPage')).ComingSoonPage,
+    }),
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
   },
 ] satisfies RouteObject[];
