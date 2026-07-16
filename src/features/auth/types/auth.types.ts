@@ -24,7 +24,7 @@ export interface SignUpResponse {
   email: string;
   name: string;
   githubId: string;
-  studentNumber: number; // 레거시 명세의 studentNumber 유지
+  studentNumber: number;
   term: string;
 }
 
