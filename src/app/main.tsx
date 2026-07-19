@@ -6,25 +6,11 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './styles/global.css';
 import { AppRouter } from '@/routes/index.tsx';
 
- const enableMocking = async () => {
-  if (import.meta.env.MODE !== 'development') {
-    return;
-  }
-
-  const { worker } = await import('@/mocks/browser');
-
-  return worker.start({
-    onUnhandledRequest: 'bypass',
-  });
-}
-
-enableMocking().then(() => {
-  createRoot(document.getElementById('root') as HTMLElement).render(
-    <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <AppRouter />
-        <ReactQueryDevtools />
-      </QueryClientProvider>
-    </StrictMode>,
-  );
-});
+createRoot(document.getElementById('root') as HTMLElement).render(
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <AppRouter />
+      <ReactQueryDevtools />
+    </QueryClientProvider>
+  </StrictMode>,
+);
