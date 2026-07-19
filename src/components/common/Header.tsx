@@ -48,7 +48,7 @@ export const Header = () => {
               프로젝트
             </Link>
             <Link
-              to="/notice"
+              to="/community"
               className="relative cursor-pointer transition-colors duration-150 hover:text-point-yellow"
             >
               커뮤니티

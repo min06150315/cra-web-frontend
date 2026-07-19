@@ -43,46 +43,51 @@ export const routes = [
         }),
       },
       {
-        path: 'notice',
+        path: 'community',
+        lazy: async () => ({
+          Component: (await import('@/features/community/layout/CommunityLayout'))
+            .CommunityLayout,
+        }),
         children: [
+          // 1) /community (대시보드 홈)
           {
             index: true,
             lazy: async () => ({
-              Component: (await import('@/features/notice/pages/NoticeListPage'))
-                .NoticeListPage,
+              Component: (
+                await import('@/features/community/pages/CommunityDashboardPage')
+              ).CommunityDashboardPage,
             }),
           },
+          // 2) /community/board/create (글쓰기 페이지 - 카테고리 상관없이 통합 글쓰기 폼 활용)
           {
-            path: ':id',
-            lazy: async () => ({
-              Component: (await import('@/features/notice/pages/NoticeDetailPage'))
-                .NoticeDetailPage,
-            }),
-          },
-        ],
-      },
-      {
-        path: 'board',
-        children: [
-          {
-            index: true,
-            lazy: async () => ({
-              Component: (await import('@/features/board/pages/BoardListPage'))
-                .BoardListPage,
-            }),
-          },
-          {
-            path: 'create',
+            path: 'board/create',
             lazy: async () => ({
               Component: (await import('@/features/board/pages/BoardCreatePage'))
                 .BoardCreatePage,
             }),
           },
+          // 3) /community/board/update/:id (글 수정하기 페이지)
           {
-            path: 'update/:id',
+            path: 'board/update/:id',
             lazy: async () => ({
               Component: (await import('@/features/board/pages/BoardUpdatePage'))
                 .BoardUpdatePage,
+            }),
+          },
+          // 4) /community/:category (각 게시판 리스트: notice | blog | qna)
+          {
+            path: ':category',
+            lazy: async () => ({
+              Component: (await import('@/features/board/pages/BoardListPage'))
+                .BoardListPage,
+            }),
+          },
+          // 5) /community/:category/:id (게시물 상세 페이지)
+          {
+            path: ':category/:id',
+            lazy: async () => ({
+              Component: (await import('@/features/board/pages/BoardDetailPage'))
+                .BoardDetailPage,
             }),
           },
         ],
