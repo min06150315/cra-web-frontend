@@ -1,25 +1,20 @@
-// export interface Comment {
-//   id?: number;
-//   userId: number;
-//   boardId?: number;
-//   content: string;
-//   commentList: Comment[];
-//   likeCount?: number;
-//   createdAt: Date;
-//   updatedAt: Date;
-//   deleted: boolean;
-//   havrutaDto: {
-//     id: number | null;
-//     classname: string;
-//     professor: string;
-//   };
-//   resUserDetailDto: {
-//     name: string;
-//     email: string;
-//     studentId: number;
-//     term: string;
-//     githubId: string;
-//     imgUrl: string;
-//     greetingMessage: string;
-//   };
-// }
+import type { User } from '@/features/auth/types/user.types';
+
+export interface Comment {
+  id: number;
+  board_id: number;
+  user_id: string;
+  content: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CommentWithAuthor extends Omit<Comment, 'user_id'> {
+  author: User;
+}
+
+export interface CreateCommentDto {
+  boardId: number;
+  userId: string;
+  content: string;
+}

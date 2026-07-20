@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { HelpCircle, ArrowUpRight, MessageSquare } from 'lucide-react';
+import { formatRelative } from '@/utils/date';
 
 interface QnaItem {
   id: number;
@@ -51,7 +52,7 @@ export const DashboardQnaSection = ({ qnas }: DashboardQnaSectionProps) => {
                 )}
               </div>
               <span className="shrink-0 text-xs font-bold text-slate-400">
-                {item.created_at.slice(5)}
+                {formatRelative(item.created_at)}
               </span>
             </div>
           ))}

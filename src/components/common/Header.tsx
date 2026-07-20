@@ -1,12 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { User } from 'lucide-react';
+import { LogOut, Settings, User } from 'lucide-react';
+import { useAuth } from '@/features/auth/hooks/useAuth';
+import { supabase } from '@/lib/supabase';
 import CRALogoIMG from '@/assets/images/logos/logo-blue.avif';
 
 export const Header = () => {
+  const { user, isLoading } = useAuth();
+
+  // 드롭다운 열림 상태
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
   // 스크롤 내리면 헤더 사라지고, 스크롤 올리면 헤더 보이는 효과
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    if (!isLoading) {
+      console.log('현재 로그인된 유저 정보:', user);
+    }
+  }, [user, isLoading]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +41,30 @@ export const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
+
+  // 로그아웃 핸들링
+  const handleLogout = async () => {
+    try {
+      setIsMenuOpen(false);
+
+      setTimeout(async () => {
+        await supabase.auth.signOut();
+      }, 0);
+    } catch (error) {
+      console.error('로그아웃 중 오류가 발생했습니다:', error);
+    }
+  };
+
+  // 외부 영역 클릭 시 드롭다운 자동으로 닫기
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <header
@@ -61,13 +99,58 @@ export const Header = () => {
             </Link>
           </nav>
 
-          <Link
-            to="/login"
-            className="group cursor-pointer text-black transition-all duration-200 border-2 border-black bg-white hover:bg-primary p-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5"
-            aria-label="로그인"
-          >
-            <User className="w-5 h-5 md:w-6 md:h-6" strokeWidth={2.5} />
-          </Link>
+          {!isLoading && (
+            <div className="relative" ref={dropdownRef}>
+              {user ? (
+                <button
+                  type="button"
+                  onClick={() => setIsMenuOpen((prev) => !prev)}
+                  className={`group cursor-pointer text-black transition-all duration-200 border-2 border-black p-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 ${
+                    isMenuOpen
+                      ? 'bg-primary translate-x-0.5 translate-y-0.5 shadow-none'
+                      : 'bg-white hover:bg-primary'
+                  }`}
+                  aria-label="유저 메뉴 열기"
+                >
+                  <User className="w-5 h-5 md:w-6 md:h-6" strokeWidth={2.5} />
+                </button>
+              ) : (
+                <Link
+                  to="/login"
+                  className="block group cursor-pointer text-black transition-all duration-200 border-2 border-black bg-white hover:bg-primary p-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5"
+                  aria-label="로그인"
+                >
+                  <User className="w-5 h-5 md:w-6 md:h-6" strokeWidth={2.5} />
+                </Link>
+              )}
+
+              {isMenuOpen && user && (
+                <div className="absolute right-0 mt-3 w-48 bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col z-50 text-sm font-black text-black">
+                  <div className="px-4 py-3 border-b-2 border-black bg-slate-50 text-xs text-slate-500 font-medium truncate">
+                    {user.email}
+                  </div>
+
+                  <Link
+                    to="/profile"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex items-center gap-x-2 px-4 py-3 hover:bg-slate-100 border-b-2 border-black transition-colors"
+                  >
+                    <Settings className="w-4 h-4" strokeWidth={2.5} />
+                    마이페이지
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="flex items-center gap-x-2 px-4 py-3 hover:bg-red-50 text-red-600 font-black transition-colors text-left cursor-pointer"
+                  >
+                    <LogOut className="w-4 h-4" strokeWidth={2.5} />
+                    로그아웃
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </header>

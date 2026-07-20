@@ -1,21 +1,20 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { BoardForm, type BoardFormData } from '@/features/board/components/BoardForm';
 import { useBoardDetail, useUpdateBoard } from '@/features/board/hooks/useBoard';
-import type { Board } from '@/features/board/types/board.types';
+import type { CreateBoardDto } from '@/features/board/types/board.types';
 import { Edit3 } from 'lucide-react';
 
 export const BoardUpdatePage = () => {
-  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+  const boardId = Number(id);
 
-  const { data: board, isLoading: isFetching } = useBoardDetail(Number(id));
-  const { mutate, isPending: isUpdating } = useUpdateBoard(Number(id));
+  const { data: board, isLoading: isFetching } = useBoardDetail(boardId);
+  const { mutate, isPending: isUpdating } = useUpdateBoard(boardId);
 
   const handleSubmit = (data: BoardFormData) => {
     if (!board) return;
 
-    const updatedPayload: Board = {
-      ...board,
+    const updatedPayload: Partial<CreateBoardDto> = {
       title: data.title,
       content: data.content,
       category: data.category,
@@ -24,7 +23,6 @@ export const BoardUpdatePage = () => {
     mutate(updatedPayload, {
       onSuccess: () => {
         alert('게시글이 성공적으로 수정되었습니다.');
-        navigate(`/community/${data.category.toLowerCase()}/${board.id}`);
       },
       onError: (error) => {
         console.error('수정 실패:', error);
@@ -35,7 +33,7 @@ export const BoardUpdatePage = () => {
 
   if (isFetching) {
     return (
-      <div className="flex justify-center items-center min-h-[300px] text-black font-black text-sm">
+      <div className="flex justify-center items-center min-h-75 text-black font-black text-sm">
         기존 게시글을 불러오는 중... 🔄
       </div>
     );
@@ -43,7 +41,7 @@ export const BoardUpdatePage = () => {
 
   if (!board) {
     return (
-      <div className="flex justify-center items-center min-h-[300px] text-black font-black text-sm">
+      <div className="flex justify-center items-center min-h-75 text-black font-black text-sm">
         게시글을 찾을 수 없습니다. ❌
       </div>
     );

@@ -11,7 +11,7 @@ const signUpSchema = z
       .string()
       .min(4, '아이디는 최소 4글자 이상이어야 합니다.')
       .max(15, '아이디는 15글자를 넘을 수 없습니다.')
-      .regex(/^[a-zA-Z0-9]+$/, '아이디는 영문 and 숫자만 사용 가능합니다.'),
+      .regex(/^[a-zA-Z0-9]+$/, '아이디는 영문 및 숫자만 사용 가능합니다.'),
 
     password: z
       .string()
@@ -55,6 +55,7 @@ export const SignUpForm = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false); // 비밀번호 토글 상태 추가
 
   const {
     register,
@@ -64,21 +65,35 @@ export const SignUpForm = () => {
     resolver: zodResolver(signUpSchema),
     mode: 'onTouched',
     defaultValues: {
-      username: '',
+      username: 'min06150315',
       password: '',
       confirmPassword: '',
-      email: '',
-      name: '',
-      githubId: '',
-      studentId: '',
-      term: '',
-      code: '',
+      email: 'min06150315@gmail.com',
+      name: '민경빈',
+      githubId: 'min06150315',
+      studentId: '22300265',
+      term: '24-2',
+      code: 'CRA206',
     },
   });
 
   const onSubmit = async (data: SignUpFormData) => {
     setIsLoading(true);
     setServerError(null);
+
+    const VALID_SIGNUP_CODE = import.meta.env.VITE_SIGNUP_CODE;
+
+    if (!VALID_SIGNUP_CODE) {
+      setServerError('서버 환경 변수가 설정되지 않았습니다. 운영진에게 문의하세요.');
+      setIsLoading(false);
+      return;
+    }
+
+    if (data.code !== VALID_SIGNUP_CODE) {
+      setServerError('동아리 가입 인증 코드가 올바르지 않습니다.');
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const { confirmPassword, studentId, ...rest } = data;
@@ -130,7 +145,7 @@ export const SignUpForm = () => {
           />
           {errors.username && (
             <p className="text-xs md:text-sm text-red-600 font-extrabold pl-0.5">
-              ⚠ {errors.username.message}
+              {errors.username.message}
             </p>
           )}
         </div>
@@ -146,7 +161,7 @@ export const SignUpForm = () => {
           />
           {errors.name && (
             <p className="text-xs md:text-sm text-red-600 font-extrabold pl-0.5">
-              ⚠ {errors.name.message}
+              {errors.name.message}
             </p>
           )}
         </div>
@@ -154,15 +169,24 @@ export const SignUpForm = () => {
         {/* 비밀번호 */}
         <div className="flex flex-col gap-y-1.5">
           <label className="text-xs md:text-sm font-black text-black">비밀번호</label>
-          <input
-            type="password"
-            placeholder="영문, 숫자, 특수문자 조합 8자 이상"
-            {...register('password')}
-            className="w-full px-4 py-3 bg-white border-2 border-black rounded-lg text-sm md:text-base text-black font-bold placeholder-slate-400 focus:outline-none focus:bg-blue-50/40 transition-colors"
-          />
+          <div className="relative w-full">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="영문, 숫자, 특수문자 조합 8자 이상"
+              {...register('password')}
+              className="w-full px-4 py-3 pr-12 bg-white border-2 border-black rounded-lg text-sm md:text-base text-black font-bold placeholder-slate-400 focus:outline-none focus:bg-blue-50/40 transition-colors"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 px-2 py-1 text-xs font-black bg-slate-100 border border-black rounded hover:bg-slate-200 text-black transition-colors"
+            >
+              {showPassword ? '숨김' : '보기'}
+            </button>
+          </div>
           {errors.password && (
             <p className="text-xs md:text-sm text-red-600 font-extrabold pl-0.5">
-              ⚠ {errors.password.message}
+              {errors.password.message}
             </p>
           )}
         </div>
@@ -172,15 +196,17 @@ export const SignUpForm = () => {
           <label className="text-xs md:text-sm font-black text-black">
             비밀번호 확인
           </label>
-          <input
-            type="password"
-            placeholder="비밀번호 다시 입력"
-            {...register('confirmPassword')}
-            className="w-full px-4 py-3 bg-white border-2 border-black rounded-lg text-sm md:text-base text-black font-bold placeholder-slate-400 focus:outline-none focus:bg-blue-50/40 transition-colors"
-          />
+          <div className="relative w-full">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="비밀번호 다시 입력"
+              {...register('confirmPassword')}
+              className="w-full px-4 py-3 pr-12 bg-white border-2 border-black rounded-lg text-sm md:text-base text-black font-bold placeholder-slate-400 focus:outline-none focus:bg-blue-50/40 transition-colors"
+            />
+          </div>
           {errors.confirmPassword && (
             <p className="text-xs md:text-sm text-red-600 font-extrabold pl-0.5">
-              ⚠ {errors.confirmPassword.message}
+              {errors.confirmPassword.message}
             </p>
           )}
         </div>
@@ -196,7 +222,7 @@ export const SignUpForm = () => {
           />
           {errors.email && (
             <p className="text-xs md:text-sm text-red-600 font-extrabold pl-0.5">
-              ⚠ {errors.email.message}
+              {errors.email.message}
             </p>
           )}
         </div>
@@ -214,7 +240,7 @@ export const SignUpForm = () => {
           />
           {errors.githubId && (
             <p className="text-xs md:text-sm text-red-600 font-extrabold pl-0.5">
-              ⚠ {errors.githubId.message}
+              {errors.githubId.message}
             </p>
           )}
         </div>
@@ -231,7 +257,7 @@ export const SignUpForm = () => {
           />
           {errors.studentId && (
             <p className="text-xs md:text-sm text-red-600 font-extrabold pl-0.5">
-              ⚠ {errors.studentId.message}
+              {errors.studentId.message}
             </p>
           )}
         </div>
@@ -247,7 +273,7 @@ export const SignUpForm = () => {
           />
           {errors.term && (
             <p className="text-xs md:text-sm text-red-600 font-extrabold pl-0.5">
-              ⚠ {errors.term.message}
+              {errors.term.message}
             </p>
           )}
         </div>
@@ -265,7 +291,7 @@ export const SignUpForm = () => {
           />
           {errors.code && (
             <p className="text-xs md:text-sm text-red-600 font-extrabold pl-0.5">
-              ⚠ {errors.code.message}
+              {errors.code.message}
             </p>
           )}
         </div>

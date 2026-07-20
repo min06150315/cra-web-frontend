@@ -16,6 +16,7 @@ export const LoginForm = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false); // 비밀번호 토글 상태 추가
 
   const {
     register,
@@ -44,9 +45,10 @@ export const LoginForm = () => {
     }
   };
 
+  // 구글 로그인 기능 (현재 준비중)
   const handleGoogleLogin = () => {
-    // TODO: 구글 로그인 연동 기능
     navigate('/coming-soon');
+    // authAPI.loginWithGoogle();
   };
 
   return (
@@ -66,16 +68,16 @@ export const LoginForm = () => {
 
       {/* 아이디 필드 */}
       <div className="flex flex-col gap-y-2">
-        <label className="text-xs md:text-sm font-black text-black">아이디</label>
+        <label className="text-xs md:text-sm font-black text-black">이메일</label>
         <input
           type="text"
           {...register('username')}
-          placeholder="아이디를 입력하세요"
+          placeholder="이메일을 입력하세요"
           className="w-full px-4 py-3.5 bg-white border-2 border-black rounded-lg text-sm md:text-base text-black font-bold placeholder-slate-400 focus:outline-none focus:bg-blue-50/40 transition-colors"
         />
         {errors.username && (
           <p className="text-xs md:text-sm text-red-600 font-extrabold pl-0.5">
-            ⚠ {errors.username.message}
+            {errors.username.message}
           </p>
         )}
       </div>
@@ -83,15 +85,24 @@ export const LoginForm = () => {
       {/* 비밀번호 필드 */}
       <div className="flex flex-col gap-y-2">
         <label className="text-xs md:text-sm font-black text-black">비밀번호</label>
-        <input
-          type="password"
-          {...register('password')}
-          placeholder="비밀번호를 입력하세요"
-          className="w-full px-4 py-3.5 bg-white border-2 border-black rounded-lg text-sm md:text-base text-black font-bold placeholder-slate-400 focus:outline-none focus:bg-blue-50/40 transition-colors"
-        />
+        <div className="relative w-full">
+          <input
+            type={showPassword ? 'text' : 'password'}
+            {...register('password')}
+            placeholder="비밀번호를 입력하세요"
+            className="w-full px-4 py-3.5 pr-12 bg-white border-2 border-black rounded-lg text-sm md:text-base text-black font-bold placeholder-slate-400 focus:outline-none focus:bg-blue-50/40 transition-colors"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 px-2 py-1 text-xs font-black bg-slate-100 border border-black rounded hover:bg-slate-200 text-black transition-colors"
+          >
+            {showPassword ? '숨김' : '보기'}
+          </button>
+        </div>
         {errors.password && (
           <p className="text-xs md:text-sm text-red-600 font-extrabold pl-0.5">
-            ⚠ {errors.password.message}
+            {errors.password.message}
           </p>
         )}
       </div>
@@ -105,12 +116,12 @@ export const LoginForm = () => {
         </div>
       )}
 
-      {/* 로그인 버튼*/}
+      {/* 로그인 버튼 */}
       <div className="flex flex-col gap-y-3.5 mt-2">
         <button
           type="submit"
           disabled={isLoading}
-          className={`w-full py-4 border-2 border-black rounded-lg text-sm md:text-base font-black transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] cursor-pointer ${
+          className={`w-full py-4 border-2 border-black rounded-lg text-sm md:text-base font-black transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 cursor-pointer ${
             isLoading
               ? 'bg-slate-300 text-black cursor-not-allowed shadow-none translate-x-1 translate-y-1'
               : 'bg-primary text-black hover:bg-primary-hover hover:text-white'
@@ -123,7 +134,7 @@ export const LoginForm = () => {
         <button
           type="button"
           onClick={handleGoogleLogin}
-          className="w-full py-4 flex items-center justify-center gap-x-2.5 bg-white border-2 border-black hover:bg-slate-100 rounded-lg text-sm md:text-base font-black text-black transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] cursor-pointer"
+          className="w-full py-4 flex items-center justify-center gap-x-2.5 bg-white border-2 border-black hover:bg-slate-100 rounded-lg text-sm md:text-base font-black text-black transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 cursor-pointer"
         >
           <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
             <path

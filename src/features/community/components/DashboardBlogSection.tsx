@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { BookOpen, ArrowUpRight } from 'lucide-react';
+import { formatDateDot, formatRelative } from '@/utils/date';
 
 interface BlogItem {
   id: number;
@@ -42,7 +43,7 @@ export const DashboardBlogSection = ({ blogs }: DashboardBlogSectionProps) => {
                 {item.title}
               </Link>
               <span className="shrink-0 text-xs font-bold text-slate-400">
-                {item.created_at.slice(5)}
+                {formatRelative(item.created_at)}
               </span>
             </div>
           ))}

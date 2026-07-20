@@ -1,7 +1,21 @@
+import { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { LoginForm } from '@/features/auth/components/LoginForm';
-import { Link } from 'react-router-dom';
+import { useAuth } from '@/features/auth/hooks/useAuth';
 
 export const LoginPage = () => {
+  const { user, isLoading } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoading && user) {
+      navigate('/', { replace: true });
+    }
+  }, [user, isLoading, navigate]);
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (user) return null;
+
   return (
     <section className="flex min-h-screen items-center justify-center bg-blue-50/20 px-6 py-24">
       <div className="w-full max-w-md flex flex-col py-6">

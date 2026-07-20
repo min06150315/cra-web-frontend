@@ -1,5 +1,5 @@
 export interface User {
-  id?: number;
+  id?: string;
   name: string; // 이름
   studentId: number; // 학번
   term: string; // 기수

@@ -1,8 +1,8 @@
+import type { BoardWithAuthor } from '@/features/board/types/board.types';
 import { BoardListItem } from './BoardListItem';
-import type { BoardItem } from './BoardListItem';
 
 interface BoardListContainerProps {
-  boards: BoardItem[];
+  boards: BoardWithAuthor[];
   category: string;
 }
 

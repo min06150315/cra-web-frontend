@@ -1,26 +1,29 @@
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/features/auth/hooks/useAuth';
 import { BoardForm, type BoardFormData } from '@/features/board/components/BoardForm';
 import { useCreateBoard } from '@/features/board/hooks/useBoard';
-import type { Board } from '@/features/board/types/board.types';
+import type { CreateBoardDto } from '@/features/board/types/board.types';
 import { PenSquare } from 'lucide-react';
 
 export const BoardCreatePage = () => {
-  const navigate = useNavigate();
+  const { user } = useAuth();
   const { mutate, isPending } = useCreateBoard();
 
   const handleSubmit = (data: BoardFormData) => {
-    const postPayload: Board = {
-      id: Date.now(),
+    if (!user) {
+      alert('로그인이 필요한 서비스입니다.');
+      return;
+    }
+
+    const postPayload: CreateBoardDto = {
       title: data.title,
       content: data.content,
       category: data.category,
-      created_at: new Date(),
+      user_id: user.id,
     };
 
     mutate(postPayload, {
       onSuccess: () => {
         alert('게시글이 성공적으로 등록되었습니다.');
-        navigate(`/${data.category.toLowerCase()}`);
       },
       onError: (error) => {
         console.error('등록 실패:', error);

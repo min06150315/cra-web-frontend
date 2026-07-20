@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Megaphone, ArrowUpRight } from 'lucide-react';
+import { formatRelative } from '@/utils/date';
 
 interface NoticeItem {
   id: number;
@@ -41,7 +42,7 @@ export const DashboardNoticeSection = ({ notices }: DashboardNoticeSectionProps)
               {item.title}
             </Link>
             <span className="shrink-0 text-xs font-bold text-slate-500 self-start sm:self-center">
-              {item.created_at}
+              {formatRelative(item.created_at)}
             </span>
           </div>
         ))}

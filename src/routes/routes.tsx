@@ -43,6 +43,12 @@ export const routes = [
         }),
       },
       {
+        path: 'profile',
+        lazy: async () => ({
+          Component: (await import('@/features/user/pages/ProfilePage')).ProfilePage
+        })
+      },
+      {
         path: 'community',
         lazy: async () => ({
           Component: (await import('@/features/community/layout/CommunityLayout'))

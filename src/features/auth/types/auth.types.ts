@@ -19,7 +19,7 @@ export interface SignUpPayload {
 
 // 회원가입 성공 시 백엔드에서 내려주는 응답 데이터
 export interface SignUpResponse {
-  id: number;
+  id: string;
   username: string;
   email: string;
   name: string;
@@ -30,7 +30,7 @@ export interface SignUpResponse {
 
 // 토큰
 export interface TokenDto {
-  userId: number;
+  userId: string;
   accessToken: string;
   refreshToken: string;
 }

@@ -3,7 +3,6 @@ import CRALogoIMG from '@/assets/images/logos/logo-blue.avif';
 
 export const Footer = () => {
   return (
-    // 네오브루탈리즘의 기본 배경인 웜 화이트(#f4f2ed) 또는 순수 화이트에 두꺼운 검은 테두리
     <footer className="text-base font-extrabold border-t-4 border-black text-black">
       <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
         <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-10 pb-12 border-b-4 border-black">
@@ -17,7 +16,6 @@ export const Footer = () => {
 
               <div className="hidden sm:block w-1 h-6 bg-black" />
 
-              {/* SNS 링크들의 네오브루탈리즘 버튼화 */}
               <div className="flex items-center gap-3">
                 <Link
                   to="https://github.com/Computer-Research-Association"
@@ -77,7 +75,6 @@ export const Footer = () => {
               </div>
             </div>
 
-            {/* 본문 정보 텍스트 - 검정색 가독성 강조 */}
             <div className="space-y-2 text-sm md:text-base tracking-tight text-slate-800">
               <p>포항시 북구 한동로 558, 한동대학교 학생회관 206호</p>
               <p>
@@ -96,7 +93,6 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* 하단 카피라이트 */}
         <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs md:text-sm text-slate-700">
           <p className="font-bold">Copyright © 2026 CRA. All rights reserved.</p>
 
