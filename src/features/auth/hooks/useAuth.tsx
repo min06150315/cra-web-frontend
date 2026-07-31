@@ -1,39 +1,45 @@
-import { useEffect, useState } from 'react';
-import type { User } from '@supabase/supabase-js';
-import { supabase } from '@/lib/supabase';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { signup, login, reissueToken, logout } from '@/features/auth/api/auth.api';
+import type {
+  ReqSignupDto,
+  ReqLoginDto,
+  ReqReissueTokenDto,
+} from '@/features/auth/types';
 
-export const useAuth = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+// 회원가입 훅
+export const useSignupMutation = () => {
+  return useMutation({
+    mutationFn: (dto: ReqSignupDto) => signup(dto),
+  });
+};
 
-  useEffect(() => {
-    const getSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      const currentUser = session?.user ?? null;
+// 로그인 훅
+export const useLoginMutation = () => {
+  const queryClient = useQueryClient();
 
-      setUser(currentUser);
-      setIsAdmin(currentUser?.email === import.meta.env.VITE_ADMIN_EMAIL);
-      setIsLoading(false);
-    };
+  return useMutation({
+    mutationFn: (dto: ReqLoginDto) => login(dto),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+};
 
-    getSession();
+// 액세스 토큰 재발급 훅
+export const useReissueTokenMutation = () => {
+  return useMutation({
+    mutationFn: (dto: ReqReissueTokenDto) => reissueToken(dto),
+  });
+};
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      const currentUser = session?.user ?? null;
-      setUser(currentUser);
-      setIsAdmin(currentUser?.email === import.meta.env.VITE_ADMIN_EMAIL);
-      setIsLoading(false);
-    });
+// 로그아웃 훅
+export const useLogoutMutation = () => {
+  const queryClient = useQueryClient();
 
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
-
-  return { user, isAdmin, isLoading };
+  return useMutation({
+    mutationFn: () => logout(),
+    onSuccess: () => {
+      queryClient.clear();
+    },
+  });
 };
