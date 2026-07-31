@@ -1,10 +1,31 @@
-import type { UserRole } from "@/features/user/types/common.types";
-import type { ResUserDetailDto } from "@/features/user/types/entity.types";
+import type { UserRole } from '@/features/user/types/common.types';
 
+export interface ResUpdateUserDto {
+  name: string;
+  email: string;
+  studentId: string;
+  term: string;
+  githubId: string;
+  deleted: boolean;
+  greetingMessage?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ResUserDetailDto {
+  id: number;
+  name: string;
+  email: string;
+  studentId: string;
+  term: string;
+  githubId: string;
+  greetingMessage?: string;
+  imgUrl?: string;
+}
 
 export interface ResUserAdminDetailDto extends ResUserDetailDto {
   userId: number;
-  roles: UserRole[]; // 👈 배열로 단순화
+  roles: UserRole[];
 }
 
 export interface ResPageUserDto {

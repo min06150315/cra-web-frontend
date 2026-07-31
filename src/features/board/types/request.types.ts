@@ -1,4 +1,4 @@
-import { BoardOrderBy, Category } from '@/features/board/types/common.types';
+import { BoardOrderBy, Category } from '@/features/board/types';
 
 export interface ReqCreateBoardDto {
   title: string;

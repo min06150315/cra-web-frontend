@@ -1,120 +1,140 @@
-import { supabase } from '@/lib/supabase';
+import { publicClient, privateClient } from '@/api/client';
 import type {
-  Board,
-  BoardWithAuthor,
-  CreateBoardDto,
-} from '@/features/board/types/board.types';
+  ReqCreateBoardDto,
+  ReqUpdateBoardDto,
+  ReqBoardPinDto,
+  ResCreateBoardDto,
+  ResDetailBoardDto,
+  ResLikedBoardDto,
+  ResPageBoardDto,
+  ResSearchPageBoardDto,
+  ResBoardPinDto,
+  ReqGetBoardListParams,
+  ReqSearchBoardListParams,
+} from '@/features/board/types';
 
-// [Read] 게시글 전체 목록 조회
-export const getBoards = async (): Promise<Board[]> => {
-  const { data, error } = await supabase
-    .from('boards')
-    .select('*')
-    .order('created_at', { ascending: false });
-  if (error) throw error;
-  return data as Board[];
+// Board 삭제 (인증 O)
+export const deleteBoard = async (boardId: number): Promise<void> => {
+  await privateClient.delete(`/api/board/${boardId}`);
 };
 
-// [Read] ID에 해당하는 단일 게시글 상세 조회
-export const getBoardById = async (id: number): Promise<BoardWithAuthor> => {
-  const { data, error } = await supabase
-    .from('boards')
-    .select(
-      `
-      id,
-      title,
-      content,
-      category,
-      created_at,
-      view,
-      file_url,
-      
-      author: user_id (
-        id,
-        name,
-        studentId,
-        term,
-        githubId,
-        imageUrl,
-        greetingMessage
-      )
-    `,
-    )
-    .eq('id', id)
-    .maybeSingle();
-
-  if (error) throw error;
-  return data as unknown as BoardWithAuthor;
+// Board 상세 조회 (인증 X)
+export const getBoard = async (boardId: number): Promise<ResDetailBoardDto> => {
+  const { data } = await publicClient.get<ResDetailBoardDto>(`/api/board/${boardId}`);
+  return data;
 };
 
-// [Read] 카테고리별 게시글 목록 조회
-export const getBoardsByCategory = async (
-  category: string,
-): Promise<BoardWithAuthor[]> => {
-  const { data, error } = await supabase
-    .from('boards')
-    .select(
-      `
-      id,
-      title,
-      content,
-      category,
-      created_at,
-      view,
-      file_url,
-      
-      author: user_id (
-        id,
-        name,
-        studentId,
-        term,
-        githubId,
-        imageUrl,
-        greetingMessage
-      )
-    `,
-    )
-    .eq('category', category)
-    .order('created_at', { ascending: false });
-
-  if (error) throw error;
-  return data as unknown as BoardWithAuthor[];
+// Board 조회수 증가 (인증 X)
+export const increaseBoardView = async (boardId: number): Promise<void> => {
+  await publicClient.post(`/api/board/view/${boardId}`);
 };
 
-// [Create] 게시글 작성
-export const createBoard = async (dto: CreateBoardDto): Promise<void> => {
-  const { error } = await supabase.from('boards').insert([
+// Board 페이지 조회 (인증 X)
+export const getBoardList = async ({
+  category,
+  page,
+  perPage = 0,
+  orderBy = 0,
+  isASC = true,
+}: ReqGetBoardListParams): Promise<ResPageBoardDto> => {
+  const { data } = await publicClient.get<ResPageBoardDto>(
+    `/api/board/${category}/page/${page}`,
     {
-      title: dto.title,
-      content: dto.content,
-      category: dto.category,
-      user_id: dto.user_id,
+      params: { perPage, orderBy, isASC },
     },
-  ]);
-
-  if (error) throw error;
+  );
+  return data;
 };
 
-// [Update] 게시글 수정
+// Board 검색 (인증 X)
+export const searchBoard = async (
+  params: ReqSearchBoardListParams,
+): Promise<ResSearchPageBoardDto> => {
+  const { data } = await publicClient.get<ResSearchPageBoardDto>('/api/board/search', {
+    params,
+  });
+  return data;
+};
+
+// Board 생성 (인증 O)
+export const createBoard = async (
+  dto: ReqCreateBoardDto,
+  file?: File,
+): Promise<ResCreateBoardDto> => {
+  const formData = new FormData();
+
+  formData.append('board', new Blob([JSON.stringify(dto)], { type: 'application/json' }));
+
+  if (file) {
+    formData.append('file', file);
+  }
+
+  const { data } = await privateClient.post<ResCreateBoardDto>('/api/board', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+
+  return data;
+};
+
+// Board 수정 (인증 O)
 export const updateBoard = async (
-  id: number,
-  dto: Partial<CreateBoardDto>,
-): Promise<void> => {
-  const { error } = await supabase
-    .from('boards')
-    .update({
-      title: dto.title,
-      content: dto.content,
-      category: dto.category,
-    })
-    .eq('id', id);
+  boardId: number,
+  dto: ReqUpdateBoardDto,
+  file?: File,
+): Promise<ResDetailBoardDto> => {
+  const formData = new FormData();
 
-  if (error) throw error;
+  formData.append('board', new Blob([JSON.stringify(dto)], { type: 'application/json' }));
+
+  if (file) {
+    formData.append('file', file);
+  }
+
+  const { data } = await privateClient.put<ResDetailBoardDto>(
+    `/api/board/${boardId}`,
+    formData,
+    {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    },
+  );
+
+  return data;
 };
 
-// [Delete] 게시글 삭제
-export const deleteBoard = async (id: number): Promise<void> => {
-  const { error } = await supabase.from('boards').delete().eq('id', id);
+// Board 좋아요 / 취소 (인증 O)
+export const setBoardLike = async (
+  boardId: number,
+  isLike: boolean,
+): Promise<ResLikedBoardDto> => {
+  const { data } = await privateClient.post<ResLikedBoardDto>(
+    `/api/board/like/${boardId}`,
+    null,
+    { params: { isLike } },
+  );
+  return data;
+};
 
-  if (error) throw error;
+// BoardPin 생성 (인증 O)
+export const createBoardPin = async (dto: ReqBoardPinDto): Promise<ResBoardPinDto> => {
+  const { data } = await privateClient.post<ResBoardPinDto>('/api/admin/board/pin', dto);
+  return data;
+};
+
+// BoardPin 삭제 (인증 O)
+export const deleteBoardPin = async (pinId: number): Promise<void> => {
+  await privateClient.delete(`/api/admin/board/pin/${pinId}`);
+};
+
+// 카테고리별 BoardPin 조회 (인증 X)
+export const getBoardPinList = async (category: number): Promise<ResBoardPinDto[]> => {
+  const { data } = await publicClient.get<ResBoardPinDto[]>(
+    `/api/admin/board/pin/${category}`,
+  );
+  return data;
+};
+
+// 모든 BoardPin 조회 (인증 X)
+export const getAllBoardPins = async (): Promise<ResBoardPinDto[]> => {
+  const { data } = await publicClient.get<ResBoardPinDto[]>('/api/admin/board/pin');
+  return data;
 };

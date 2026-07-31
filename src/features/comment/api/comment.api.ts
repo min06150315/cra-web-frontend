@@ -1,60 +1,36 @@
-import { supabase } from '@/lib/supabase';
-import type { CommentWithAuthor, CreateCommentDto } from '../types/comment.types';
+import { privateClient } from '@/api/client';
+import type {
+  ReqCreateCommentDto,
+  ReqUpdateCommentDto,
+  ResCreateCommentDto,
+  ResUpdateCommentDto,
+} from '@/features/comment/types';
 
-export const getCommentsByBoardId = async (
+// 댓글 생성 (인증 O)
+export const createComment = async (
   boardId: number,
-): Promise<CommentWithAuthor[]> => {
-  const { data, error } = await supabase
-    .from('comments')
-    .select(
-      `
-      id,
-      board_id,
-      content,
-      created_at,
-      updated_at,
-      author: user_id (
-        id,
-        name,
-        studentId,
-        term,
-        githubId,
-        imageUrl,
-        greetingMessage
-      )
-    `,
-    )
-    .eq('board_id', boardId)
-    .order('created_at', { ascending: true });
-
-  if (error) {
-    console.error('댓글 조회 에러:', error.message);
-    throw error;
-  }
-
-  return data as unknown as CommentWithAuthor[];
+  dto: ReqCreateCommentDto,
+): Promise<ResCreateCommentDto> => {
+  const { data } = await privateClient.post<ResCreateCommentDto>(
+    `/api/comment/${boardId}`,
+    dto,
+  );
+  return data;
 };
 
-// 2. 댓글 등록
-export const createComment = async (dto: CreateCommentDto): Promise<void> => {
-  const { error } = await supabase.from('comments').insert({
-    board_id: dto.boardId,
-    user_id: dto.userId,
-    content: dto.content,
-  });
-
-  if (error) {
-    console.error('댓글 등록 에러:', error.message);
-    throw error;
-  }
+// 댓글 수정 (인증 O)
+export const updateComment = async (
+  commentId: number,
+  dto: ReqUpdateCommentDto,
+): Promise<ResUpdateCommentDto> => {
+  const { data } = await privateClient.put<ResUpdateCommentDto>(
+    `/api/comment/${commentId}`,
+    dto,
+  );
+  return data;
 };
 
-// 3. 댓글 삭제
+// 댓글 삭제 (인증 O)
 export const deleteComment = async (commentId: number): Promise<void> => {
-  const { error } = await supabase.from('comments').delete().eq('id', commentId);
-
-  if (error) {
-    console.error('댓글 삭제 에러:', error.message);
-    throw error;
-  }
+  await privateClient.delete(`/api/comment/${commentId}`);
 };

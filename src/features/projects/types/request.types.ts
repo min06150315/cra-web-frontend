@@ -1,3 +1,5 @@
+import type { ProjectOrderBy } from '@/features/projects/types';
+
 export interface ReqCreateProjectDto {
   semester: string;
   teamName: string;
@@ -21,4 +23,11 @@ export interface ReqUpdateProjectDto {
   imageUrl?: string;
   deleted?: boolean;
   tagNames?: string[];
+}
+
+export interface ReqGetProjectListParams {
+  page: number;
+  perPage: number;
+  orderBy: ProjectOrderBy;
+  isASC: boolean;
 }

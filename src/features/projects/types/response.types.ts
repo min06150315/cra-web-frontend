@@ -25,7 +25,7 @@ export interface ResDetailProjectDto {
   imageUrl?: string;
   tags: ResTagDto[];
   deleted: boolean;
-  createAt: string;  // 명세 오탈자(createAt) 반영
+  createAt: string;
   updatedAt?: string;
 }
 
@@ -38,7 +38,7 @@ export interface ResListProjectDto {
   imageUrl?: string;
   tags: ResTagDto[];
   deleted: boolean;
-  createAt: string;  // 명세 오탈자(createAt) 반영
+  createAt: string;
 }
 
 export interface ResPageProjectDto {
@@ -58,6 +58,6 @@ export interface ResUpdateProjectDto {
   imageUrl?: string;
   tags: ResTagDto[];
   deleted: boolean;
-  createAt: string;  // 명세 오탈자(createAt) 반영
+  createAt: string;
   updatedAt?: string;
 }

@@ -1,101 +1,32 @@
-import { supabase } from '@/lib/supabase';
+import { publicClient, privateClient } from '@/api/client';
 import type {
-  LoginPayload,
-  LoginResponse,
-  SignUpPayload,
-  SignUpResponse,
-} from '@/features/auth/types/auth.types';
+  ReqSignupDto,
+  ReqLoginDto,
+  ReqReissueTokenDto,
+  ResSignupDto,
+  ResLoginDto,
+  ResTokenDto,
+} from '@/features/auth/types';
 
-export const authAPI = {
-  // 로그인 API
-  login: async (data: LoginPayload): Promise<LoginResponse> => {
-    const { data: authData, error } = await supabase.auth.signInWithPassword({
-      email: data.username.includes('@') ? data.username : `${data.username}@example.com`,
-      password: data.password,
-    });
+// 회원가입 (인증 X)
+export const signup = async (dto: ReqSignupDto): Promise<ResSignupDto> => {
+  const { data } = await publicClient.post<ResSignupDto>('/api/auth/signup', dto);
+  return data;
+};
 
-    if (error || !authData.user || !authData.session) {
-      throw new Error(error?.message || '로그인에 실패했습니다.');
-    }
+// 로그인 (인증 X)
+export const login = async (dto: ReqLoginDto): Promise<ResLoginDto> => {
+  const { data } = await publicClient.post<ResLoginDto>('/api/auth/login', dto);
+  return data;
+};
 
-    const metadata = authData.user.user_metadata;
+// 액세스 토큰 재발급 (인증 X)
+export const reissueToken = async (dto: ReqReissueTokenDto): Promise<ResTokenDto> => {
+  const { data } = await publicClient.post<ResTokenDto>('/api/auth/reissue-token', dto);
+  return data;
+};
 
-    return {
-      resUserDetailDto: {
-        name: metadata.name || '',
-        email: authData.user.email || '',
-        studentId: Number(metadata.studentId) || 0,
-        term: metadata.term || '',
-        githubId: metadata.githubId || '',
-        imgUrl: metadata.imgUrl || '',
-        greetingMessage: metadata.greetingMessage || '',
-      },
-      resTokenDto: {
-        userId: authData.user.id,
-        accessToken: authData.session.access_token,
-        refreshToken: authData.session.refresh_token || '',
-      },
-    };
-  },
-
-  // 구글 로그인 API
-  loginWithGoogle: async (): Promise<void> => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-        queryParams: {
-          access_type: 'offline',
-          prompt: 'select_account',
-        },
-      },
-    });
-
-    if (error) {
-      throw new Error(error.message || '구글 로그인 중 오류가 발생했습니다.');
-    }
-  },
-
-  // 회원가입 API
-  signUp: async (data: SignUpPayload): Promise<SignUpResponse> => {
-    const { data: authData, error } = await supabase.auth.signUp({
-      email: data.email,
-      password: data.password,
-      options: {
-        data: {
-          username: data.username,
-          name: data.name,
-          githubId: data.githubId,
-          studentId: data.studentId,
-          term: data.term,
-          imgUrl: '',
-          greetingMessage: '안녕하세요!',
-        },
-      },
-    });
-
-    if (error || !authData.user) {
-      throw new Error(error?.message || '회원가입에 실패했습니다.');
-    }
-
-    const metadata = authData.user.user_metadata;
-
-    return {
-      id: authData.user.id,
-      username: metadata.username || '',
-      email: authData.user.email || '',
-      name: metadata.name || '',
-      githubId: metadata.githubId || '',
-      studentNumber: Number(metadata.studentId) || 0,
-      term: metadata.term || '',
-    };
-  },
-
-  // 로그아웃 API
-  logOut: async (): Promise<void> => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      throw new Error(error.message);
-    }
-  },
+// 로그아웃 (인증 O)
+export const logout = async (): Promise<void> => {
+  await privateClient.post('/api/auth/logout');
 };

@@ -22,7 +22,6 @@ export interface ResDetailItemDto {
   updatedAt?: string;
 }
 
-// ResDetailItemDto를 상속하여 어드민용 대여자 상세 정보를 포함하는 구조
 export interface ResAdminDetailItemDto extends ResDetailItemDto {
   resUserDetailDto: ResUserDetailDto;
 }

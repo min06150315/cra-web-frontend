@@ -14,3 +14,16 @@ export interface ReqUpdateItemDto {
   imageUrl?: string;
   isBorrowed?: boolean;
 }
+
+export interface ReqGetItemListParams {
+  category: ItemCategory;
+  page: number;
+  perPage?: number;
+  isASC?: boolean;
+}
+
+export interface ReqUpdateItemStatusParams {
+  itemId: number;
+  valid: boolean;
+  username: string;
+}
