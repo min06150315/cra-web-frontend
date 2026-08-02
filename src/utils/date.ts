@@ -32,7 +32,7 @@ export const formatDateDash = (d: Date | string | null | undefined) => {
   return !isValid ? '-' : `${shortYear}-${month}-${day}`;
 };
 
-// 상대 시간 계산 함수
+// 상대 시간 계산
 export const formatRelative = (d: Date | string | null | undefined) => {
   if (!d) return '-';
   const date = new Date(d);

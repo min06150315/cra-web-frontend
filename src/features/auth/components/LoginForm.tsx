@@ -48,7 +48,6 @@ export const LoginForm = () => {
   // 구글 로그인 기능 (현재 준비중)
   const handleGoogleLogin = () => {
     navigate('/coming-soon');
-    // authAPI.loginWithGoogle();
   };
 
   return (

@@ -10,7 +10,6 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
       <div className="bg-white border-4 border-black rounded-3xl max-w-2xl w-full overflow-hidden shadow-[12px_12px_0px_0px_#70b1f2] relative text-black animate-in fade-in zoom-in-95 duration-200">
-        {/* X 닫기 버튼 */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-black hover:bg-black hover:text-white z-10 bg-white border-2 border-black w-8 h-8 rounded-full flex items-center justify-center transition-colors cursor-pointer"
@@ -19,14 +18,12 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
           <X size={20} strokeWidth={3} />
         </button>
 
-        {/* 프로젝트 이미지 */}
         <img
           src={project.image}
           alt={project.title}
           className="w-full aspect-video object-cover border-b-4 border-black"
         />
 
-        {/* 내용 부분 */}
         <div className="p-8">
           <span className="text-sm font-bold bg-primary text-black border border-black px-2 py-0.5 rounded-md inline-block">
             {project.term} 기수 프로젝트
@@ -36,7 +33,6 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
             {project.description}
           </p>
 
-          {/* 하단 버튼 */}
           <div className="flex justify-end gap-3">
             <button
               onClick={onClose}

@@ -55,7 +55,7 @@ export const SignUpForm = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
-  const [showPassword, setShowPassword] = useState(false); // 비밀번호 토글 상태 추가
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -65,15 +65,15 @@ export const SignUpForm = () => {
     resolver: zodResolver(signUpSchema),
     mode: 'onTouched',
     defaultValues: {
-      username: 'min06150315',
+      username: '',
       password: '',
       confirmPassword: '',
-      email: 'min06150315@gmail.com',
-      name: '민경빈',
-      githubId: 'min06150315',
-      studentId: '22300265',
-      term: '24-2',
-      code: 'CRA206',
+      email: '',
+      name: '',
+      githubId: '',
+      studentId: '',
+      term: '',
+      code: '',
     },
   });
 

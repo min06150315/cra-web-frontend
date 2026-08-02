@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Edit3, Trash2 } from 'lucide-react';
-import { useBoardDetail, useDeleteBoard } from '@/features/board/hooks/useBoard';
-import { useComments } from '@/features/comment/hooks/useComment';
+import { useBoardDetail, useDeleteBoard } from '@/features/board/hooks/useBoards';
+import { useComments } from '@/features/comment/hooks/useComments';
 import { BoardDetailHeader } from '@/features/board/components/BoardDetailHeader';
 import { BoardDetailContent } from '@/features/board/components/BoardDetailContent';
 import { BoardCommentSection } from '@/features/comment/components/BoardCommentSection';
@@ -50,7 +50,7 @@ export const BoardDetailPage = () => {
   if (isError || !post || !postId) {
     return (
       <div className="p-6 bg-red-50 border-2 border-red-500 rounded-2xl text-red-700 m-4">
-        <p className="font-black mb-2">💥 게시글을 불러오지 못했습니다.</p>
+        <p className="font-black mb-2">게시글을 불러오지 못했습니다.</p>
         <p className="text-xs font-mono">
           {(error as Error)?.message || '존재하지 않는 게시글 ID입니다.'}
         </p>

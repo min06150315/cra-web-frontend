@@ -1,6 +1,6 @@
 import type { RouteObject } from 'react-router-dom';
 import { MainLayout } from '@/components/common/MainLayout';
-import { NotFoundPage } from '@/features/main/pages/NotFoundPage';
+import { NotFoundPage, ServerErrorPage } from '@/features/error/pages';
 
 export const routes = [
   {
@@ -8,10 +8,14 @@ export const routes = [
     element: <MainLayout />,
     errorElement: (
       <MainLayout>
-        <NotFoundPage />
+        <ServerErrorPage />
       </MainLayout>
     ),
     children: [
+      {
+        path: '*',
+        element: <NotFoundPage />,
+      },
       {
         index: true,
         lazy: async () => ({
@@ -45,8 +49,27 @@ export const routes = [
       {
         path: 'profile',
         lazy: async () => ({
-          Component: (await import('@/features/user/pages/ProfilePage')).ProfilePage
-        })
+          Component: (await import('@/features/user/pages/ProfilePage')).ProfilePage,
+        }),
+      },
+      {
+        path: 'user',
+        children: [
+          {
+            index: true,
+            lazy: async () => ({
+              Component: (await import('@/features/user/pages/UserListPage'))
+                .UserListPage,
+            }),
+          },
+          {
+            path: ':id',
+            lazy: async () => ({
+              Component: (await import('@/features/user/pages/UserDetailPage'))
+                .UserDetailPage,
+            }),
+          },
+        ],
       },
       {
         path: 'community',
@@ -55,7 +78,6 @@ export const routes = [
             .CommunityLayout,
         }),
         children: [
-          // 1) /community (대시보드 홈)
           {
             index: true,
             lazy: async () => ({
@@ -64,7 +86,6 @@ export const routes = [
               ).CommunityDashboardPage,
             }),
           },
-          // 2) /community/board/create (글쓰기 페이지 - 카테고리 상관없이 통합 글쓰기 폼 활용)
           {
             path: 'board/create',
             lazy: async () => ({
@@ -72,7 +93,6 @@ export const routes = [
                 .BoardCreatePage,
             }),
           },
-          // 3) /community/board/update/:id (글 수정하기 페이지)
           {
             path: 'board/update/:id',
             lazy: async () => ({
@@ -80,7 +100,6 @@ export const routes = [
                 .BoardUpdatePage,
             }),
           },
-          // 4) /community/:category (각 게시판 리스트: notice | blog | qna)
           {
             path: ':category',
             lazy: async () => ({
@@ -88,7 +107,6 @@ export const routes = [
                 .BoardListPage,
             }),
           },
-          // 5) /community/:category/:id (게시물 상세 페이지)
           {
             path: ':category/:id',
             lazy: async () => ({
@@ -98,16 +116,12 @@ export const routes = [
           },
         ],
       },
+      {
+        path: 'profile',
+        lazy: async () => ({
+          Component: (await import('@/features/user/pages/ProfilePage')).ProfilePage,
+        }),
+      },
     ],
-  },
-  {
-    path: '/coming-soon',
-    lazy: async () => ({
-      Component: (await import('@/features/main/pages/ComingSoonPage')).ComingSoonPage,
-    }),
-  },
-  {
-    path: '*',
-    element: <NotFoundPage />,
   },
 ] satisfies RouteObject[];

@@ -1,12 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LogOut, Settings, User } from 'lucide-react';
-import { useAuth } from '@/features/auth/hooks/useAuth';
-import { supabase } from '@/lib/supabase';
+import { useLogoutMutation } from '@/features/auth/hooks/useAuth';
 import CRALogoIMG from '@/assets/images/logos/logo-blue.avif';
 
 export const Header = () => {
-  const { user, isLoading } = useAuth();
+  const user = null;
+  const isLoading = false;
+
+  const navigate = useNavigate();
+  const logoutMutation = useLogoutMutation();
 
   // 드롭다운 열림 상태
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,12 +18,6 @@ export const Header = () => {
   // 스크롤 내리면 헤더 사라지고, 스크롤 올리면 헤더 보이는 효과
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-
-  useEffect(() => {
-    if (!isLoading) {
-      console.log('현재 로그인된 유저 정보:', user);
-    }
-  }, [user, isLoading]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,16 +40,17 @@ export const Header = () => {
   }, [lastScrollY]);
 
   // 로그아웃 핸들링
-  const handleLogout = async () => {
-    try {
-      setIsMenuOpen(false);
+  const handleLogout = () => {
+    setIsMenuOpen(false);
 
-      setTimeout(async () => {
-        await supabase.auth.signOut();
-      }, 0);
-    } catch (error) {
-      console.error('로그아웃 중 오류가 발생했습니다:', error);
-    }
+    logoutMutation.mutate(undefined, {
+      onSuccess: () => {
+        navigate('/');
+      },
+      onError: (error) => {
+        console.error('로그아웃 중 오류가 발생했습니다:', error);
+      },
+    });
   };
 
   // 외부 영역 클릭 시 드롭다운 자동으로 닫기
@@ -127,7 +125,7 @@ export const Header = () => {
               {isMenuOpen && user && (
                 <div className="absolute right-0 mt-3 w-48 bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col z-50 text-sm font-black text-black">
                   <div className="px-4 py-3 border-b-2 border-black bg-slate-50 text-xs text-slate-500 font-medium truncate">
-                    {user.email}
+                    {/* {user.email} */}
                   </div>
 
                   <Link
@@ -142,10 +140,11 @@ export const Header = () => {
                   <button
                     type="button"
                     onClick={handleLogout}
-                    className="flex items-center gap-x-2 px-4 py-3 hover:bg-red-50 text-red-600 font-black transition-colors text-left cursor-pointer"
+                    disabled={logoutMutation.isPending}
+                    className="flex items-center gap-x-2 px-4 py-3 hover:bg-red-50 text-red-600 font-black transition-colors text-left cursor-pointer disabled:opacity-50"
                   >
                     <LogOut className="w-4 h-4" strokeWidth={2.5} />
-                    로그아웃
+                    {logoutMutation.isPending ? '로그아웃 중...' : '로그아웃'}
                   </button>
                 </div>
               )}

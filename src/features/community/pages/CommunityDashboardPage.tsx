@@ -2,7 +2,7 @@ import { MascotBanner } from '@/features/community/components/MascotBanner';
 import { DashboardNoticeSection } from '@/features/community/components/DashboardNoticeSection';
 import { DashboardBlogSection } from '@/features/community/components/DashboardBlogSection';
 import { DashboardQnaSection } from '@/features/community/components/DashboardQnaSection';
-import { useBoardsByCategory } from '@/features/board/hooks/useBoard';
+import { useBoardsByCategory } from '@/features/board/hooks/useBoards';
 import IMG_CRANG from '@/assets/images/mascot/mascot-crang.avif';
 
 export const CommunityDashboardPage = () => {
@@ -41,7 +41,7 @@ export const CommunityDashboardPage = () => {
 
       {isAllLoading ? (
         <div className="bg-white border-2 border-black rounded-2xl shadow-[4px_4px_0px_0px_#000] p-16 text-center font-black text-sm text-black">
-          ⏳ 대시보드 실시간 데이터를 불러오는 중...
+          대시보드 실시간 데이터를 불러오는 중...
         </div>
       ) : (
         <div className="flex flex-col gap-6">

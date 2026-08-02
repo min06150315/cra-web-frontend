@@ -69,7 +69,6 @@ export const HomeRecruit = () => {
           </div>
         </div>
 
-        {/* 지원하기 버튼 */}
         <Link
           to="/recruit"
           className="w-48 text-center px-8 py-5 bg-primary hover:bg-primary-hover text-black hover:text-white font-black text-xl border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-1 hover:-translate-y-1 transition-all duration-200 tracking-wide uppercase"

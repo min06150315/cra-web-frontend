@@ -11,7 +11,6 @@ export const RecruitPosters = ({
 }: RecruitPostersProps) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20 items-start">
-      {/* [1] 메인 포스터 영역 */}
       <div className="lg:col-span-7 flex flex-col">
         <h3 className="text-xl font-black mb-4 flex items-center gap-2">
           <span className="bg-black text-white px-2 py-0.5 rounded text-sm">{term}</span>{' '}
@@ -27,7 +26,6 @@ export const RecruitPosters = ({
         </div>
       </div>
 
-      {/* [2] 히스토리 아카이브 영역 */}
       <div className="lg:col-span-5 flex flex-col">
         <h3 className="text-xl font-black mb-1">지난 리크루팅 히스토리</h3>
         <p className="text-sm font-medium text-gray-600 mb-4">

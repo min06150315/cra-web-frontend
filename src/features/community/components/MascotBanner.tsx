@@ -9,10 +9,10 @@ export const MascotBanner = ({ imageSrc }: MascotBannerProps) => {
 
       <div className="z-10 flex flex-col items-start max-w-[60%] md:max-w-[65%]">
         <h3 className="text-lg md:text-2xl font-black text-black leading-snug break-keep">
-          "기록하고, 질문하며, 함께 증명해 나가는 공간"
+         CRA 커뮤니티 페이지
         </h3>
         <p className="text-slate-800 text-xs md:text-sm font-bold mt-2 leading-relaxed break-keep">
-          CRA의 모든 지식과 성장이 시작되는 곳입니다.
+          CRA 커뮤니티 페이지
         </p>
       </div>
 

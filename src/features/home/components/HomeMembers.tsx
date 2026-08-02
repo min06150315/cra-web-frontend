@@ -6,7 +6,6 @@ export const HomeMembers = () => {
   return (
     <section className="w-full bg-[#111] py-20 md:py-32 px-6 border-b-4 border-black text-white">
       <div className="mx-auto max-w-5xl flex flex-col gap-y-24 md:gap-y-36">
-        {/* 블록 1 */}
         <div className="group flex flex-col md:flex-row gap-8 md:gap-16 items-center">
           <div className="w-full md:w-1/2 aspect-4/3 overflow-hidden rounded-none border-4 border-black shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] group-hover:shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] group-hover:-translate-x-1 group-hover:-translate-y-1 transition-all duration-300">
             <img
@@ -29,7 +28,6 @@ export const HomeMembers = () => {
           </div>
         </div>
 
-        {/* 블록 2 */}
         <div className="group flex flex-col md:flex-row-reverse gap-8 md:gap-16 items-center">
           <div className="w-full md:w-1/2 aspect-4/3 overflow-hidden rounded-none border-4 border-black shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] group-hover:shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] group-hover:-translate-x-1 group-hover:-translate-y-1 transition-all duration-300">
             <img
@@ -52,7 +50,6 @@ export const HomeMembers = () => {
           </div>
         </div>
 
-        {/* 블록 3 */}
         <div className="group flex flex-col md:flex-row gap-8 md:gap-16 items-center">
           <div className="w-full md:w-1/2 aspect-4/3 overflow-hidden rounded-none border-4 border-black shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] group-hover:shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] group-hover:-translate-x-1 group-hover:-translate-y-1 transition-all duration-300">
             <img

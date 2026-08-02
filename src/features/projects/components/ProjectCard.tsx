@@ -20,7 +20,6 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
           isImageLoaded ? 'opacity-100' : 'absolute inset-0 opacity-0 pointer-events-none'
         }`}
       >
-        {/* 이미지 부분 */}
         <div className="relative aspect-16/10 overflow-hidden bg-gray-100 border-b-2 border-black">
           <span className="absolute top-3 left-3 z-10 bg-black text-white text-xs font-bold px-2.5 py-1 rounded-md border border-white">
             {project.term}
@@ -34,7 +33,6 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
           />
         </div>
 
-        {/* 프로젝트 설명 부분 */}
         <div className="p-6 grow flex flex-col justify-between bg-white">
           <div>
             <h3 className="text-[20px] font-black mb-2 text-black line-clamp-1 group-hover:text-primary-hover transition-colors">
@@ -45,7 +43,6 @@ export const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
             </p>
           </div>
 
-          {/* 기술 스택 */}
           <div className="flex flex-wrap gap-1.5">
             {project.stack.map((tech) => (
               <span

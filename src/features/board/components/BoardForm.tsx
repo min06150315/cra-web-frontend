@@ -73,7 +73,6 @@ export const BoardForm = ({ initialData, onSubmit, isLoading }: BoardFormProps) 
         )}
       </div>
 
-      {/* 제목 입력 */}
       <div className="flex flex-col gap-y-2">
         <label className="text-sm md:text-base font-black text-black">제목</label>
         <input

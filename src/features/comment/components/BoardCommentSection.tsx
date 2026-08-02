@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Send } from 'lucide-react';
 import { BoardCommentList } from './BoardCommentList';
-import { useComments, useCreateComment, useDeleteComment } from '../hooks/useComment';
+import { useComments, useCreateComment, useDeleteComment } from '../hooks/useComments';
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import { supabase } from '@/lib/supabase';
 

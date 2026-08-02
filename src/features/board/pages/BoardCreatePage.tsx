@@ -1,6 +1,6 @@
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import { BoardForm, type BoardFormData } from '@/features/board/components/BoardForm';
-import { useCreateBoard } from '@/features/board/hooks/useBoard';
+import { useCreateBoard } from '@/features/board/hooks/useBoards';
 import type { CreateBoardDto } from '@/features/board/types/board.types';
 import { PenSquare } from 'lucide-react';
 

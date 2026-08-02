@@ -1,16 +1,15 @@
 import { Link } from 'react-router-dom';
-import type { BoardWithAuthor } from '@/features/board/types/board.types';
+import type { BoardDetail } from '@/features/board/types/board.types';
 import { MessageSquare, Eye } from 'lucide-react';
 import { formatDateDot } from '@/utils/date';
 
 interface BoardListItemProps {
-  board: BoardWithAuthor;
+  board: BoardDetail;
   category: string;
 }
 
 export const BoardListItem = ({ board, category }: BoardListItemProps) => {
-  // TODO: 댓글 데이터 가져와서 댓글 수 출력하기
-  const commentCount = 0;
+  const commentCount = board.comments?.length ?? 2;
   const views = 0;
 
   return (
@@ -24,7 +23,7 @@ export const BoardListItem = ({ board, category }: BoardListItemProps) => {
             {board.title}
           </Link>
 
-          {commentCount !== undefined && commentCount > 0 && (
+          {commentCount > 0 && (
             <span className="shrink-0 flex items-center bg-primary px-2 py-0.5 border-2 border-black rounded-md text-[11px] font-black shadow-[1px_1px_0px_0px_#000]">
               <MessageSquare size={11} strokeWidth={2.5} className="mr-1" />
               {commentCount}

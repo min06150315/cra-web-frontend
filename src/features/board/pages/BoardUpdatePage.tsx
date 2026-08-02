@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { BoardForm, type BoardFormData } from '@/features/board/components/BoardForm';
-import { useBoardDetail, useUpdateBoard } from '@/features/board/hooks/useBoard';
+import { useBoardDetail, useUpdateBoard } from '@/features/board/hooks/useBoards';
 import type { CreateBoardDto } from '@/features/board/types/board.types';
 import { Edit3 } from 'lucide-react';
 

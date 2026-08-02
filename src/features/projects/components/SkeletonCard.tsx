@@ -1,4 +1,3 @@
-// 프로젝트 카드의 스켈레톤 카드
 export const SkeletonCard = () => {
   return (
     <div className="bg-white rounded-2xl overflow-hidden border-2 border-black shadow-[8px_8px_0px_0px_#70b1f2] flex flex-col justify-between h-full animate-pulse select-none pointer-events-none">

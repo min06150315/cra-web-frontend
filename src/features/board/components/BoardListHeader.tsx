@@ -24,7 +24,7 @@ export const BoardListHeader = ({ title, desc, emoji }: BoardListHeaderProps) =>
         className="self-start sm:self-center flex items-center gap-1.5 px-4 py-2 border-2 border-black rounded-xl bg-black text-xs md:text-sm font-bold text-white transition-all hover:bg-white hover:text-black shadow-[2px_2px_0px_0px_#334155] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
       >
         <PenSquare size={14} strokeWidth={2.5} />
-        글쓰기 ✏️
+        글쓰기
       </Link>
     </div>
   );

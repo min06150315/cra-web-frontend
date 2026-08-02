@@ -19,7 +19,7 @@ export const RECRUIT_DATA = {
   // 현재 모집 상태 제어
   // true: "지원하기" 활성화 배너 노출 / false: "모집 기간이 아닙니다" 노출
   isRecruiting: true,
-  applyLink: 'https://forms.gle/your-apply-link', // 구글 폼 등의 지원서 링크
+  applyLink: 'cra206.org',
 
   // 현재 모집 포스터 이미지
   currentPoster: POSTER_26_1,

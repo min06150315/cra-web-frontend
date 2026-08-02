@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { BoardListHeader } from '@/features/board/components/BoardListHeader';
 import { BoardListContainer } from '@/features/board/components/BoardListContainer';
-import { useBoardsByCategory } from '@/features/board/hooks/useBoard';
+import { useBoardsByCategory } from '@/features/board/hooks/useBoards';
 import type { Category } from '@/features/board/types/board.types';
 
 const CATEGORY_MAP: Record<
@@ -55,7 +55,7 @@ export const BoardListPage = () => {
 
       {isLoading ? (
         <div className="bg-white border-2 border-black rounded-2xl shadow-[4px_4px_0px_0px_#000] p-16 text-center font-bold text-sm">
-          ⏳ 게시물을 불러오는 중입니다...
+          게시물을 불러오는 중입니다...
         </div>
       ) : (
         <BoardListContainer boards={boards} category={category} />
